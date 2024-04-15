@@ -38,9 +38,11 @@ socket.onmessage = function (event) {
 
     console.log(data);
 
-    let source = data.user == user ? "user-" : "";
     let message = document.createElement("div");
-    message.classList.add(`${source}message`);
+    message.classList.add(`message`);
+    if (data.user == user) {
+        message.classList.add(`request-user-message`);
+    }
     message.innerHTML = data.message;
     document.querySelector(".messages").appendChild(message);
 

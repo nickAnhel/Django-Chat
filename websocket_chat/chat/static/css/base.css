@@ -85,7 +85,7 @@ body {
     max-width: 600px;
 }
 
-.user-message {
+.request-user-message {
     background-color: #007bff;
     display: block;
     float: right;
