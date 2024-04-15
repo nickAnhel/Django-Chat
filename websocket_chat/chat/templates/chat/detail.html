@@ -7,11 +7,69 @@
 {% block content %}
     <h2>Chat {{ chat.title }}</h2>
     <div id="chat">
-        <div class="messages">
-
-        </div>
+        <div class="messages"></div>
         <div class="input-box">
             <input type="text" placeholder="Message...">
             <input type="submit" class="button" value="Send">
         </div>
 {% endblock content %}
+
+{% block include_js %}
+    {{ chat.id|json_script:"chat_id" }}
+    {{ request.user.username|json_script:"username" }}
+{% endblock include_js %}
+
+{% block domready %}
+const chatId = JSON.parse(
+    document.getElementById("chat_id").textContent
+);
+
+const user = JSON.parse(
+    document.getElementById("username").textContent
+);
+
+const chatUrl = `ws://${window.location.host}/ws/chat/${chatId}/`;
+
+const socket = new WebSocket(chatUrl);
+
+socket.onmessage = function (event) {
+    let data = JSON.parse(event.data);
+    let chatMessages = document.querySelector(".messages");
+
+    console.log(data);
+
+    let source = data.user == user ? "user-" : "";
+    let message = document.createElement("div");
+    message.classList.add(`${source}message`);
+    message.innerHTML = data.message;
+    document.querySelector(".messages").appendChild(message);
+
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+};
+
+socket.onclose = function (event) {
+    console.error("Chat closed", event);
+}
+
+let input = document.querySelector(".input-box input[type='text']");
+let submit = document.querySelector(".input-box input[type='submit']");
+
+submit.addEventListener("click", function () {
+    let message = input.value;
+    if (message) {
+        socket.send(JSON.stringify({
+            "message": message,
+        }));
+        input.value = "";
+        input.focus();
+    }
+});
+
+input.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        submit.click();
+    }
+});
+
+input.focus();
+{% endblock domready %}

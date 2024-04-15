@@ -11,7 +11,7 @@
 
 <body>
     <div id="header">
-        <div id="logo">Socket Chat</div>
+        <div id="logo"><a href="/" style="text-decoration: none; color: #fff;">Socket Chat</a></div>
         {% if not request.user.is_authenticated %}
             <a href="{% url "login" %}" class="button">Sign In</a>
         {% else %}
@@ -21,6 +21,8 @@
     <div id="content">
         {% block content %}{% endblock content %}
     </div>
+
+    {% block include_js %}{% endblock include_js %}
 
     <script>
         document.addEventListener("DOMContentLoaded", (event) => {
