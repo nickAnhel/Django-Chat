@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ chat.title }}
+{% endblock title %}
+
+{% block content %}
+    <h2>Chat {{ chat.title }}</h2>
+    <div id="chat">
+        <div class="messages">
+
+        </div>
+        <div class="input-box">
+            <input type="text" placeholder="Message...">
+            <input type="submit" class="button" value="Send">
+        </div>
+{% endblock content %}
