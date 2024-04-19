@@ -5,13 +5,21 @@
 {% endblock title %}
 
 {% block content %}
-    <h2>Chat {{ chat.title }}</h2>
+    <h2>Chat <span style="color: #007bff;">{{ chat.title }}</span></h2>
     <div id="chat">
         <div class="messages"></div>
-        <div class="input-box">
-            <input type="text" placeholder="Message...">
-            <input type="submit" class="button" value="Send">
-        </div>
+        {% if request.user in chat.members.all %}
+            <div class="input-box">
+                <input type="text" placeholder="Message...">
+                <input type="submit" class="button" value="Send">
+            </div>
+        {% else %}
+            <div class="input-box">
+                {% comment %} <a href="{% url 'chat:join' chat.id %}" class="button"></a> {% endcomment %}
+                <a href="{% url 'chat:join' chat.id %}" class="button" style="margin: auto; text-align: center;">Join</a>
+            </div>
+        {% endif %}
+    </div>
 {% endblock content %}
 
 {% block include_js %}

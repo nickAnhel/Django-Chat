@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Chats
+{% endblock title %}
+
+{% block content %}
+    <div id="chat-list">
+        <h2>Chats</h2>
+        <div id="search">
+            <input type="text" name="search" placeholder="Search">
+            <input type="submit" value="Search">
+        </div>
+        <div id="chats">
+            <ul>
+                {% for chat in chats %}
+                    <a href="{% url "chat:detail" chat.id %}">
+                        <li>
+                            {{ chat.title }}
+                            {% if request.user in chat.members.all %}
+                                <span style="color: #333; float: right">Joined</span>
+                            {% endif %}
+                        </li>
+                    </a>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock content %}

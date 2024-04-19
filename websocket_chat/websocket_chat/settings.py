@@ -130,7 +130,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Login settings
-LOGIN_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "chat:list"
 LOGIN_URL = "login"
 LOGOUT_URL = "logout"
 
