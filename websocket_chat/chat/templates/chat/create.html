@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Create Chat
+{% endblock title %}
+
+{% block content %}
+<div class="chat-create-form">
+        <h2>Create Chat</h2>
+        <form action="{% url "chat:create" %}" method="post">
+            {{ form }}
+            {% csrf_token %}
+            <input type="submit" value="Create">
+        </form>
+    </div>
+{% endblock content %}

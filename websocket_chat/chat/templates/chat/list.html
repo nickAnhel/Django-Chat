@@ -14,16 +14,30 @@
         <div id="chats">
             <ul>
                 {% for chat in chats %}
-                    <a href="{% url "chat:detail" chat.id %}">
-                        <li>
-                            {{ chat.title }}
-                            {% if request.user in chat.members.all %}
-                                <span style="color: #333; float: right">Joined</span>
-                            {% endif %}
-                        </li>
-                    </a>
+                <a href="{% url "chat:detail" chat.id %}">
+                    <li>
+                        {{ chat.title }}
+                        {% if request.user in chat.members.all %}
+                        <span style="color: #333; float: right">Joined</span>
+                        {% endif %}
+                    </li>
+                </a>
                 {% endfor %}
             </ul>
         </div>
     </div>
 {% endblock content %}
+
+{% block domready %}
+    let header = document.getElementById("header");
+    header.innerHTML = `<div id="logo"><a href="/" style="text-decoration: none; color: #fff;">Socket Chat</a></div>
+        <div>
+            <a href='{% url 'chat:create' %}' class="button" style="margin-right: 0.3em">Create Chat</a>
+            {% if not request.user.is_authenticated %}
+                <a href="{% url "login" %}" class="button">Sign In</a>
+            {% else %}
+                <a href="{% url "logout" %}" class="button">Sign Out</a>
+            {% endif %}
+        </div>
+    `;
+{% endblock domready %}
