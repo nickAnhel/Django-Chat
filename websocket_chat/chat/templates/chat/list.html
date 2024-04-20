@@ -12,8 +12,12 @@
     <div id="chat-list">
         <h2>Chats</h2>
         <div id="search">
-            <input type="text" name="search" placeholder="Search">
-            <input type="submit" value="Search">
+            <form action="{% url "chat:search" %}" method="post">
+                {% comment %} <input type="text" name="search" placeholder="Search"> {% endcomment %}
+                {{ search_form }}
+                {% csrf_token %}
+                <input type="submit" value="Search">
+            </form>
         </div>
         <div id="chats">
             <ul>
@@ -26,6 +30,8 @@
                         {% endif %}
                     </li>
                 </a>
+                {% empty %}
+                <p>No Chats</p>
                 {% endfor %}
             </ul>
         </div>

@@ -5,12 +5,20 @@ from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
 
 from .models import Chat
-from .forms import ChatCreateForm
+from .forms import ChatCreateForm, ChatSearchForm
 
 
 def chat_list(request: HttpRequest) -> HttpResponse:
     chats = Chat.objects.all()
-    return render(request, "chat/list.html", {"chats": chats})
+
+    if request.method == "POST":
+        chat_search_form = ChatSearchForm(data=request.POST)
+        if chat_search_form.is_valid():
+            chats = chats.filter(title__icontains=chat_search_form.cleaned_data["query"])
+    else:
+        chat_search_form = ChatSearchForm()
+
+    return render(request, "chat/list.html", {"chats": chats, "search_form": chat_search_form})
 
 
 @login_required

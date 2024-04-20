@@ -156,6 +156,11 @@ body {
     margin-top: 0.5em;
 }
 
+#search form {
+    width: 100%;
+    flex-direction: row;
+}
+
 #search input[type="text"] {
     display: inline-block;
     width: 100%;
