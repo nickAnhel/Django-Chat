@@ -12,11 +12,15 @@
 <body>
     <div id="header">
         <div id="logo"><a href="/" style="text-decoration: none; color: #fff;">Socket Chat</a></div>
-        {% if not request.user.is_authenticated %}
-            <a href="{% url "login" %}" class="button">Sign In</a>
-        {% else %}
-            <a href="{% url "logout" %}" class="button">Sign Out</a>
-        {% endif %}
+        <div>
+            {% block menu %}{% endblock menu %}
+
+            {% if not request.user.is_authenticated %}
+                <a href="{% url "login" %}" class="button">Sign In</a>
+            {% else %}
+                <a href="{% url "logout" %}" class="button">Sign Out</a>
+            {% endif %}
+        </div>
     </div>
     <div id="content">
         {% block content %}{% endblock content %}

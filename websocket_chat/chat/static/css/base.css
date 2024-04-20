@@ -153,6 +153,7 @@ body {
     display: flex;
     width: 100%;
     margin-bottom: 1em;
+    margin-top: 0.5em;
 }
 
 #search input[type="text"] {
@@ -161,7 +162,7 @@ body {
     padding: 0.5em 0.7em;
     background-color: #555;
     color: #fff;
-    border: 1px solid #666;
+    border: 0;
     border-radius: 0.5em;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;

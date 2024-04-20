@@ -4,6 +4,10 @@
     Chats
 {% endblock title %}
 
+{% block menu %}
+    <a href='{% url 'chat:create' %}' class="button" style="margin-right: 0.3em">Create Chat</a>
+{% endblock menu %}
+
 {% block content %}
     <div id="chat-list">
         <h2>Chats</h2>
@@ -27,17 +31,3 @@
         </div>
     </div>
 {% endblock content %}
-
-{% block domready %}
-    let header = document.getElementById("header");
-    header.innerHTML = `<div id="logo"><a href="/" style="text-decoration: none; color: #fff;">Socket Chat</a></div>
-        <div>
-            <a href='{% url 'chat:create' %}' class="button" style="margin-right: 0.3em">Create Chat</a>
-            {% if not request.user.is_authenticated %}
-                <a href="{% url "login" %}" class="button">Sign In</a>
-            {% else %}
-                <a href="{% url "logout" %}" class="button">Sign Out</a>
-            {% endif %}
-        </div>
-    `;
-{% endblock domready %}
