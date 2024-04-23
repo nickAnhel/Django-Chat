@@ -49,6 +49,15 @@ body {
     color: #007bff;
 }
 
+#content input[type="text"]:focus {
+    outline: none;
+}
+
+#content input[type="submit"]:focus {
+    outline-color: #fff;
+    outline-offset: -2px;
+}
+
 /* Chat */
 
 #chat {
